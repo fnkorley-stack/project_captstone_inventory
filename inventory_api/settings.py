@@ -23,9 +23,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-8jikq38ba@o2l%*=p4@it^7l9)s0e&!f^=k271j0+#c+89p$-*'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'Glorynarh.pythonanywhere.com',
+]
 
 
 # Application definition
@@ -136,4 +138,6 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
+# This is required for collectstatic to work in production
+from pathlib import Path
+STATIC_ROOT = BASE_DIR / 'staticfiles'  # <-- Django will collect all static files here
