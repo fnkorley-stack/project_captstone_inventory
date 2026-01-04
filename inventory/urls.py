@@ -1,8 +1,12 @@
 from django.urls import path
-from . import views
+from .views import (
+    ItemListCreateView,
+    ItemDetailView,
+    InventoryLevelView
+)
 
 urlpatterns = [
-    path('', views.ItemListCreateView.as_view()),
-    path('<int:pk>/', views.ItemDetailView.as_view()),
-    path('inventory-levels/', views.InventoryLevelView.as_view()),
+    path("items/", ItemListCreateView.as_view(), name="inventory-list-create"),
+    path("items/<int:pk>/", ItemDetailView.as_view(), name="inventory-detail"),
+    path("levels/", InventoryLevelView.as_view(), name="inventory-levels"),
 ]

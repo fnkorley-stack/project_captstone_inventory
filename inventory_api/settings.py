@@ -15,7 +15,6 @@ from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
 
@@ -27,10 +26,9 @@ DEBUG = False
 
 ALLOWED_HOSTS = [
     'Glorynarh.pythonanywhere.com',
+    '127.0.0.1',
+    'localhost',
 ]
-
-
-# Application definition
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -44,22 +42,25 @@ INSTALLED_APPS = [
     'django_filters',
     'users',
     'inventory',
-    
-
+    'django_extensions'
 ]
+# -------------------------------
+AUTH_USER_MODEL = 'users.User'  # <-- tell Django to use your custom User model
 
+# -------------------------------
+# REST Framework settings
+# -------------------------------
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework.authentication.TokenAuthentication',
+        'rest_framework.authentication.TokenAuthentication',  # use token auth
     ],
     'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.IsAuthenticated',
+        'rest_framework.permissions.IsAuthenticated',  # protect endpoints by default
     ],
     'DEFAULT_FILTER_BACKENDS': [
         'django_filters.rest_framework.DjangoFilterBackend',
     ],
 }
-
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -89,11 +90,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'inventory_api.wsgi.application'
-
-
 # Database
-# https://docs.djangoproject.com/en/6.0/ref/settings/#databases
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -101,9 +98,7 @@ DATABASES = {
     }
 }
 
-
 # Password validation
-# https://docs.djangoproject.com/en/6.0/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -119,25 +114,13 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
-
-
 # Internationalization
-# https://docs.djangoproject.com/en/6.0/topics/i18n/
-
 LANGUAGE_CODE = 'en-us'
-
 TIME_ZONE = 'UTC'
-
 USE_I18N = True
-
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/6.0/howto/static-files/
-
 STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-# This is required for collectstatic to work in production
-from pathlib import Path
-STATIC_ROOT = BASE_DIR / 'staticfiles'  # <-- Django will collect all static files here
+STATIC_ROOT = BASE_DIR / 'staticfiles' 

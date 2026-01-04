@@ -1,5 +1,29 @@
-venv/
+# Python
 __pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.env
+*.venv
+env/
+venv/
+ENV/
+.Python
+
+# Django
+*.log
+*.pot
 *.pyc
-*.sqlite3
-.env
+db.sqlite3
+media/
+staticfiles/
+.idea/
+.vscode/
+
+# OS & IDE
+.DS_Store
+Thumbs.db
+*.swp
+
+# VS Code settings
+.vscode/

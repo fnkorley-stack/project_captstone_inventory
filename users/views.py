@@ -24,10 +24,17 @@ class LoginView(APIView):
     permission_classes = [permissions.AllowAny]
 
     def post(self, request):
-        username = request.data.get("username")
+        email = request.data.get("email")
         password = request.data.get("password")
 
-        user = authenticate(username=username, password=password)
+        if not email or not password:
+            return Response(
+                {"error": "Email and password are required"},
+                status=400
+            )
+
+        # email is used as username internally
+        user = authenticate(username=email, password=password)
 
         if user is None:
             return Response(
@@ -35,10 +42,10 @@ class LoginView(APIView):
                 status=400
             )
 
-        token, created = Token.objects.get_or_create(user=user)
+        token, _ = Token.objects.get_or_create(user=user)
 
         return Response({
             "token": token.key,
             "user_id": user.id,
-            "username": user.username
+            "email": user.email
         })
